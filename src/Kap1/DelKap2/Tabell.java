@@ -221,6 +221,63 @@ public class Tabell     // Samleklasse for tabellmetoder
                 throw new IllegalArgumentException
                         ("v = " + v + ", h = " + h);
         }
+
+        //programkode 1.3.1 b
+        public static void snu(int[] a, int v, int h)  // snur intervallet a[v:h]
+        {
+            while (v < h) bytt(a, v++, h--);
+        }
+
+        public static void snu(int[] a, int v)  // snur fra og med v og ut tabellen
+        {
+            snu(a, v, a.length - 1);
+        }
+
+        public static void snu(int[] a)  // snur hele tabellen
+        {
+            snu(a, 0, a.length - 1);
+        }
+
+        //programkode 1.3.1 b
+        public static boolean nestePermutasjon(int[] a)
+        {
+            int i = a.length - 2;                    // i starter nest bakerst
+            while (i >= 0 && a[i] > a[i + 1]) i--;   // går mot venstre
+            if (i < 0) return false;                 // a = {n, n-1, . . . , 2, 1}
+
+            int j = a.length - 1;                    // j starter bakerst
+            while (a[j] < a[i]) j--;                 // stopper når a[j] > a[i]
+            bytt(a,i,j); snu(a,i + 1);               // bytter og snur
+
+            return true;                             // en ny permutasjon
+        }
+
+        //Programkode 1.3.2 c. Sjekker om en tabell er sortert lineært
+        public static boolean erSortert(int[] a)  // legges i samleklassen Tabell
+        {
+            for (int i = 1; i < a.length; i++)      // starter med i = 1
+                if (a[i-1] > a[i]) return false;      // en inversjon
+
+            return true;
+        }
+
+        //programkode 1.3.4 a
+        public static void utvalgssortering(int[] a)
+        {
+            for (int i = 0; i < a.length - 1; i++)
+                bytt(a, i, min(a, i, a.length));  // to hjelpemetoder
+        }
+
+        //program kode for oppg 1.3.4 9
+        public static void utvalgssortering(int[] a, int fra,int til){
+            fratilKontroll(a.length,fra,til);
+
+            for (int i = fra; i < til - 1;i++){
+                bytt(a,i,min(a,i,til));
+            }
+        }
+
+
     }
 
 
